@@ -410,6 +410,34 @@ footer{position:relative;z-index:1;background:#f5f5f0;border-top:1px solid rgba(
 @keyframes spk{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--sx),var(--sy)) scale(0)}}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
 
+/* INLINE PREVIEW LINK */
+.prod-name-row{display:flex;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:.6rem}
+.prod-preview-link{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-family:'Azeret Mono',monospace;font-size:.5rem;letter-spacing:2px;
+  color:#000;text-decoration:none;text-transform:uppercase;
+  border:1.5px solid #000;
+  background:transparent;
+  padding:.38rem .9rem .38rem .75rem;
+  border-radius:4px;
+  cursor:none;
+  white-space:nowrap;
+  position:relative;overflow:hidden;
+  transition:color .28s,background .28s,box-shadow .28s,transform .28s cubic-bezier(.16,1,.3,1);
+  box-shadow:2px 2px 0 #000;
+}
+.prod-preview-link::before{
+  content:'';position:absolute;inset:0;
+  background:#000;
+  transform:translateY(101%);
+  transition:transform .32s cubic-bezier(.16,1,.3,1);
+}
+.prod-preview-link:hover{color:#fff;transform:translate(-1px,-1px);box-shadow:3px 3px 0 #000;}
+.prod-preview-link:hover::before{transform:translateY(0)}
+.prod-preview-link span,.prod-preview-link svg{position:relative;z-index:1}
+.prod-preview-link svg{width:9px;height:9px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;transition:transform .28s cubic-bezier(.16,1,.3,1)}
+.prod-preview-link:hover svg{transform:translate(2px,-2px)}
+
 @media(max-width:1100px){.hero-stats{display:none}.hero-h{font-size:clamp(2.4rem,5.5vw,6rem)}}
 @media(max-width:800px){
   .nav{padding:1.1rem 1.5rem}.nav-links{display:none}.nav.scrolled{padding:.9rem 1.5rem}
@@ -548,7 +576,6 @@ footer{position:relative;z-index:1;background:#f5f5f0;border-top:1px solid rgba(
   <p class="hero-sub">We build <strong>websites, AI agents, MVPs</strong> and high-performance marketing — plus two in-house SaaS platforms you can white-label as your own.</p>
   <div class="hero-btns">
     <button class="btn-primary open-contact"><span>Start a Project →</span></button>
-    <button class="btn-ghost">See Our Work ↗</button>
   </div>
   <div class="hero-stats">
     <div class="hstat"><div class="hstat-num">24+</div><div class="hstat-lbl">Projects Delivered</div></div>
@@ -646,7 +673,12 @@ footer{position:relative;z-index:1;background:#f5f5f0;border-top:1px solid rgba(
     <div class="prod-row">
       <div class="prod-info">
         <div class="prod-eyebrow"><div class="prod-num">01</div><div class="prod-badge"><div class="badge-dot"></div>Building Now</div></div>
-        <div class="prod-name">thriveQ<br>CRM</div>
+        <div class="prod-name-row">
+          <div class="prod-name">thriveQ CRM</div>
+          <a href="https://thriveqservices-cpu.github.io/site-crm/" target="_blank" rel="noopener" class="prod-preview-link">
+            <span>Live Preview</span> <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="4,1 9,1 9,6"/></svg>
+          </a>
+        </div>
         <div class="prod-type">Customer Relationship Management</div>
         <div class="prod-desc">Next-gen CRM for ambitious teams. AI-powered pipelines, smart automations and sharp insights that help you close deals faster and retain clients longer.</div>
         <ul class="prod-feats">
@@ -658,11 +690,6 @@ footer{position:relative;z-index:1;background:#f5f5f0;border-top:1px solid rgba(
           <li class="prod-feat"><div class="feat-check"><svg viewBox="0 0 9 9"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>Role-based access & team controls</li>
         </ul>
         <div class="wl-banner"><div class="wl-badge">White Label</div><div class="wl-text">License & deploy as your own CRM — custom branding, domain and pricing.</div></div>
-        <a href="https://thriveqservices-cpu.github.io/site-crm/" target="_blank" rel="noopener" class="prod-view-btn">
-          <div class="pvb-icon-wrap">⚡</div>
-          <div class="pvb-label"><span class="pvb-top">Live Preview</span><span class="pvb-main">Explore thriveQ CRM</span></div>
-          <span class="pvb-arr">↗</span>
-        </a>
       </div>
       <div class="prod-mock">
         <div class="mock-glow"></div>
@@ -701,7 +728,12 @@ footer{position:relative;z-index:1;background:#f5f5f0;border-top:1px solid rgba(
     <div class="prod-row flipped">
       <div class="prod-info">
         <div class="prod-eyebrow"><div class="prod-num">02</div><div class="prod-badge"><div class="badge-dot"></div>Building Now</div></div>
-        <div class="prod-name">thriveQ<br>LMS</div>
+        <div class="prod-name-row">
+          <div class="prod-name">thriveQ LMS</div>
+          <a href="https://thriveqservices-cpu.github.io/site-lms/" target="_blank" rel="noopener" class="prod-preview-link">
+            <span>Live Preview</span> <svg viewBox="0 0 10 10"><line x1="1" y1="9" x2="9" y2="1"/><polyline points="4,1 9,1 9,6"/></svg>
+          </a>
+        </div>
         <div class="prod-type">Learning Management System</div>
         <div class="prod-desc">Full-featured LMS for companies, coaches and academies. AI-personalized paths, rich media courses, certifications and built-in monetization — all in one place.</div>
         <ul class="prod-feats">
@@ -713,11 +745,6 @@ footer{position:relative;z-index:1;background:#f5f5f0;border-top:1px solid rgba(
           <li class="prod-feat"><div class="feat-check"><svg viewBox="0 0 9 9"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>Built-in marketplace & monetization</li>
         </ul>
         <div class="wl-banner"><div class="wl-badge">White Label</div><div class="wl-text">License & deploy as your own LMS — custom branding, domain and pricing.</div></div>
-        <a href="https://thriveqservices-cpu.github.io/site-lms/" target="_blank" rel="noopener" class="prod-view-btn">
-          <div class="pvb-icon-wrap">🎓</div>
-          <div class="pvb-label"><span class="pvb-top">Live Preview</span><span class="pvb-main">Explore thriveQ LMS</span></div>
-          <span class="pvb-arr">↗</span>
-        </a>
       </div>
       <div class="prod-mock">
         <div class="mock-glow"></div>
