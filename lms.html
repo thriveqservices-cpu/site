@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>thriveQ LMS — Assess. Learn. Grow.</title>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{
+  --ink:#0A0A0A;--ink2:#2D2D2D;--ink3:#5C5C5C;--ink4:#9CA3AF;
+  --bg:#F8F8F8;--bg2:#EFEFEF;
+  --border:#E4E4E7;--border2:#D1D1D6;
+  --blue:#2563EB;--blue-bg:#EFF6FF;--blue-mid:#BFDBFE;--blue-dark:#1D4ED8;
+  --green:#16A34A;--green-bg:#F0FDF4;--green-mid:#BBF7D0;
+  --orange:#EA580C;--orange-bg:#FFF7ED;
+  --red:#DC2626;--yellow:#CA8A04;--yellow-bg:#FEFCE8;
+  --sh:0 1px 4px rgba(0,0,0,.07);
+  --sh-lg:0 8px 32px rgba(0,0,0,.09),0 2px 8px rgba(0,0,0,.05);
+  --sh-xl:0 24px 64px rgba(0,0,0,.12),0 8px 24px rgba(0,0,0,.07);
+}
+body{font-family:'Geist',sans-serif;background:#fff;color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ══ NAV ══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:400;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:box-shadow .2s}
+nav.scrolled{box-shadow:0 2px 16px rgba(0,0,0,.07)}
+.logo{display:flex;align-items:center;gap:9px;text-decoration:none;font-size:15px;font-weight:800;color:var(--ink);letter-spacing:-.3px}
+.logo-sq{width:28px;height:28px;border-radius:7px;background:var(--blue);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:900}
+.nav-links{display:flex;gap:0;list-style:none}
+.nav-links a{font-size:13.5px;font-weight:500;color:var(--ink3);text-decoration:none;padding:6px 13px;border-radius:7px;transition:all .12s}
+.nav-links a:hover{background:var(--bg2);color:var(--ink)}
+.nav-cta{background:var(--ink);color:#fff;padding:8px 20px;border-radius:7px;font-size:13px;font-weight:700;border:none;font-family:'Geist',sans-serif;cursor:pointer;transition:all .14s;letter-spacing:-.1px}
+.nav-cta:hover{background:#1a1a1a;transform:translateY(-1px);box-shadow:0 4px 14px rgba(0,0,0,.2)}
+
+/* ══ HERO ══ */
+.hero{padding:128px 5vw 0;text-align:center;position:relative;overflow:hidden;background:#fff}
+.hero-glow{position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:600px;border-radius:50%;background:radial-gradient(ellipse,rgba(37,99,235,.06) 0%,transparent 70%);pointer-events:none}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--blue-bg);border:1px solid var(--blue-mid);color:var(--blue);padding:6px 16px;border-radius:100px;font-size:12px;font-weight:700;letter-spacing:.1px;margin-bottom:28px}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:bdot 1.8s ease-in-out infinite}
+@keyframes bdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.65)}}
+h1{font-size:clamp(40px,6.5vw,82px);font-weight:900;letter-spacing:-3.5px;line-height:1;color:var(--ink);max-width:900px;margin:0 auto}
+h1 em{font-style:normal;color:var(--blue)}
+.hero-sub{font-size:18px;color:var(--ink3);max-width:540px;margin:24px auto 40px;line-height:1.75}
+.hero-actions{display:flex;align-items:center;justify-content:center;gap:13px;flex-wrap:wrap;margin-bottom:20px}
+.btn-blue{background:var(--blue);color:#fff;padding:14px 30px;border-radius:9px;font-size:14px;font-weight:700;border:none;font-family:'Geist',sans-serif;cursor:pointer;transition:all .15s;box-shadow:0 2px 10px rgba(37,99,235,.32);letter-spacing:-.1px}
+.btn-blue:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 8px 20px rgba(37,99,235,.38)}
+.btn-out{background:#fff;color:var(--ink);padding:14px 30px;border-radius:9px;font-size:14px;font-weight:600;text-decoration:none;border:1.5px solid var(--border2);transition:all .15s}
+.btn-out:hover{background:var(--bg);transform:translateY(-1px)}
+.hero-proof{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:56px}
+.hp{font-size:12.5px;color:var(--ink4);display:flex;align-items:center;gap:6px}
+.hp::before{content:"✓";color:var(--green);font-weight:800;font-size:13px}
+
+/* ══ HERO DASHBOARD ══ */
+.dash-wrap{max-width:1060px;margin:0 auto;background:#fff;border:1px solid var(--border);border-radius:18px;box-shadow:var(--sh-xl);overflow:hidden;text-align:left;position:relative}
+.dash-wrap::before{content:'';position:absolute;inset:0;border-radius:18px;background:linear-gradient(180deg,transparent 60%,rgba(255,255,255,.8) 100%);pointer-events:none;z-index:1}
+.dash-bar{display:flex;align-items:center;justify-content:space-between;padding:13px 20px;background:var(--bg);border-bottom:1px solid var(--border)}
+.dbar-dots{display:flex;gap:6px}
+.dbd{width:11px;height:11px;border-radius:50%}
+.dbd-r{background:#FF5F56}.dbd-y{background:#FFBD2E}.dbd-g{background:#27C93F}
+.dbar-url{font-size:12px;color:var(--ink4);font-family:'Geist Mono',monospace;display:flex;align-items:center;gap:6px}
+.dbar-url::before{content:'🔒';font-size:10px}
+.dbar-live{background:var(--green-bg);color:var(--green);padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:5px}
+.dbar-live::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--green);animation:bdot 1.4s infinite}
+.dash-body{display:grid;grid-template-columns:200px 1fr}
+/* sidebar */
+.dash-side{background:var(--bg);border-right:1px solid var(--border);padding:16px 0;min-height:430px}
+.ds-item{display:flex;align-items:center;gap:10px;padding:9px 18px;font-size:13px;font-weight:500;color:var(--ink3);cursor:pointer;transition:all .12s;border-right:2px solid transparent}
+.ds-item:hover{background:#fff;color:var(--ink)}
+.ds-item.on{background:#fff;color:var(--blue);font-weight:700;border-right-color:var(--blue)}
+.ds-ico{font-size:15px;width:20px;text-align:center}
+.ds-hr{height:1px;background:var(--border);margin:8px 16px}
+.ds-section{font-size:10px;font-weight:700;color:var(--ink4);letter-spacing:.8px;padding:8px 18px 4px;text-transform:uppercase}
+/* main */
+.dash-main{padding:24px 28px;overflow:hidden}
+.dm-greet{font-size:16px;font-weight:800;color:var(--ink);letter-spacing:-.4px;margin-bottom:3px}
+.dm-sub{font-size:12px;color:var(--ink4);margin-bottom:20px}
+.dm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+.dm-stat{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.dm-stat-n{font-size:22px;font-weight:900;letter-spacing:-1px;color:var(--ink)}
+.dm-stat-l{font-size:11px;color:var(--ink4);margin-top:2px;font-weight:500}
+.dm-stat-c{font-size:11px;font-weight:700;margin-top:6px}
+.cu{color:var(--green)}.cd{color:var(--red)}.cb{color:var(--blue)}
+.dm-panels{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.dm-panel{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.dm-panel-h{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-bottom:1px solid var(--border)}
+.dp-title{font-size:13px;font-weight:700;color:var(--ink)}
+.dp-more{font-size:11.5px;color:var(--blue);font-weight:600;cursor:pointer}
+.dm-row{display:flex;align-items:center;justify-content:space-between;padding:9px 15px;transition:background .1s;cursor:pointer}
+.dm-row:hover{background:var(--bg)}
+.dm-rl{display:flex;align-items:center;gap:10px}
+.dm-av{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0}
+.dm-nm{font-size:12.5px;font-weight:600;color:var(--ink)}
+.dm-s{font-size:11px;color:var(--ink4);margin-top:1px}
+.pill{padding:3px 9px;border-radius:100px;font-size:10.5px;font-weight:700}
+.pg{background:var(--green-bg);color:var(--green)}
+.pb{background:var(--blue-bg);color:var(--blue)}
+.py{background:var(--yellow-bg);color:var(--yellow)}
+.po{background:var(--orange-bg);color:var(--orange)}
+/* mini chart */
+.mini-chart-wrap{padding:12px 15px 6px}
+.mini-bars{display:flex;align-items:flex-end;gap:4px;height:56px}
+.mb{border-radius:3px 3px 0 0;flex:1;background:var(--blue-mid);transition:background .15s;cursor:pointer}
+.mb:hover{background:var(--blue)}
+.mb.mhi{background:var(--blue)}
+.mb-labels{display:flex;gap:4px;margin-top:5px;padding-bottom:4px}
+.mb-label{flex:1;font-size:9px;color:var(--ink4);text-align:center;font-family:'Geist Mono',monospace}
+.mini-legend{display:flex;gap:16px;padding:6px 15px 12px}
+.ml-item{display:flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink3)}
+.ml-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+/* ══ STATS STRIP ══ */
+.stats-strip{display:flex;justify-content:center;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg);padding:36px 5vw}
+.ss-item{text-align:center;padding:0 52px;border-right:1px solid var(--border)}
+.ss-item:last-child{border-right:none}
+.ss-n{font-size:32px;font-weight:900;letter-spacing:-1.5px;color:var(--ink)}
+.ss-n b{color:var(--blue)}
+.ss-l{font-size:12px;color:var(--ink4);margin-top:4px;font-weight:500}
+
+/* ══ MARQUEE ══ */
+.marquee{overflow:hidden;background:#fff;border-bottom:1px solid var(--border);padding:13px 0}
+.mq-inner{display:flex;white-space:nowrap;animation:mq 30s linear infinite}
+.mq-inner span{padding:0 24px;font-size:12.5px;font-weight:600;color:var(--ink4);border-right:1px solid var(--border)}
+.mq-inner span.h{color:var(--ink2)}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ══ SECTIONS ══ */
+.sec{padding:96px 5vw}
+.sec.alt{background:var(--bg)}
+.kicker{display:inline-block;background:var(--bg2);border:1px solid var(--border);color:var(--ink3);padding:4px 13px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;margin-bottom:14px}
+.tagline{font-size:clamp(26px,3.5vw,44px);font-weight:900;letter-spacing:-2px;line-height:1.06;color:var(--ink)}
+.tagline em{font-style:normal;color:var(--blue)}
+.sec-desc{font-size:15.5px;color:var(--ink3);line-height:1.78;max-width:420px;margin-top:14px}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.split.rev{direction:rtl}
+.split.rev>*{direction:ltr}
+
+/* ══ MCQ MOCKUP ══ */
+.mcq-mock{background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:var(--sh-lg);overflow:hidden}
+.mcq-top{background:var(--bg);border-bottom:1px solid var(--border);padding:12px 18px;display:flex;justify-content:space-between;align-items:center}
+.mcq-title{font-size:13px;font-weight:700;color:var(--ink)}
+.mcq-timer{background:var(--orange-bg);color:var(--orange);padding:4px 11px;border-radius:100px;font-size:12px;font-weight:800;font-family:'Geist Mono',monospace}
+.mcq-prog-bar{height:3px;background:var(--border)}
+.mcq-prog-fill{height:100%;background:var(--blue);width:55%}
+.mcq-body{padding:20px 22px 14px}
+.mcq-qnum{font-size:10.5px;font-weight:700;color:var(--ink4);letter-spacing:.6px;margin-bottom:8px;text-transform:uppercase}
+.mcq-q{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.55;margin-bottom:14px}
+.mcq-code{background:#F4F4F5;border:1px solid var(--border);border-radius:8px;padding:12px 14px;font-family:'Geist Mono',monospace;font-size:11.5px;color:var(--ink2);margin-bottom:16px;line-height:1.65;overflow:hidden}
+.mcq-opt{display:flex;align-items:center;gap:11px;padding:10px 14px;border-radius:9px;border:1.5px solid var(--border);margin-bottom:8px;cursor:pointer;transition:all .14s}
+.mcq-opt:hover{border-color:var(--blue-mid);background:var(--blue-bg)}
+.mcq-opt.s{border-color:var(--blue);background:var(--blue-bg)}
+.mcq-opt.ok{border-color:var(--green);background:var(--green-bg)}
+.mcq-circle{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--border2);flex-shrink:0;transition:all .14s}
+.mcq-opt.s .mcq-circle{background:var(--blue);border-color:var(--blue)}
+.mcq-opt.ok .mcq-circle{background:var(--green);border-color:var(--green)}
+.mcq-ot{font-size:13.5px;color:var(--ink);font-weight:500}
+.mcq-nav{display:flex;gap:6px;padding:12px 22px;border-top:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.mcq-nav::-webkit-scrollbar{display:none}
+.qn{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;flex-shrink:0;cursor:pointer}
+.qn-d{background:var(--blue);color:#fff}
+.qn-c{background:var(--ink);color:#fff}
+.qn-f{background:var(--orange-bg);color:var(--orange)}
+.qn-e{background:var(--bg2);color:var(--ink4)}
+
+/* ══ CODE MOCKUP ══ */
+.code-mock{background:#0D1117;border-radius:16px;box-shadow:var(--sh-lg);overflow:hidden;border:1px solid rgba(255,255,255,.05)}
+.code-topbar{background:#161B22;padding:11px 16px;display:flex;align-items:center;gap:7px;border-bottom:1px solid rgba(255,255,255,.06)}
+.ctd{width:11px;height:11px;border-radius:50%}
+.ctd-r{background:#FF5F56}.ctd-y{background:#FFBD2E}.ctd-g{background:#27C93F}
+.code-fname{margin-left:10px;font-size:11.5px;color:rgba(255,255,255,.3);font-family:'Geist Mono',monospace}
+.code-lang-tag{margin-left:auto;background:rgba(255,255,255,.07);color:rgba(255,255,255,.38);padding:3px 9px;border-radius:5px;font-size:11px;font-family:'Geist Mono',monospace}
+.code-content{display:grid;grid-template-columns:1fr 1fr;height:260px;overflow:hidden}
+.code-prob{padding:16px;border-right:1px solid rgba(255,255,255,.05);overflow:hidden}
+.cp-badge{display:inline-flex;align-items:center;gap:6px;margin-bottom:10px}
+.cp-tag{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:4px;font-family:'Geist Mono',monospace}
+.cp-medium{background:rgba(255,189,46,.15);color:#FFBD2E}
+.cp-pts{background:rgba(37,99,235,.18);color:#93C5FD}
+.cp-title{font-size:13px;font-weight:800;color:#fff;margin-bottom:8px}
+.cp-text{font-size:11.5px;color:rgba(255,255,255,.42);line-height:1.7;margin-bottom:10px}
+.cp-example{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:7px;padding:10px 12px;font-family:'Geist Mono',monospace;font-size:11px;color:rgba(255,255,255,.35);line-height:1.7}
+.cp-example strong{color:rgba(255,255,255,.55);display:block;margin-bottom:4px;font-size:10px;letter-spacing:.5px;text-transform:uppercase}
+.code-editor-pane{padding:16px;overflow:hidden;position:relative}
+.line-nums{position:absolute;left:16px;top:16px;bottom:0;font-family:'Geist Mono',monospace;font-size:11.5px;color:rgba(255,255,255,.15);line-height:1.8;text-align:right;padding-right:12px;user-select:none}
+pre.code-pre{font-family:'Geist Mono',monospace;font-size:11.5px;line-height:1.8;color:#ABB2BF;padding-left:28px;overflow:hidden}
+.kw{color:#C678DD}.fn{color:#61AFEF}.cm{color:#5C6370;font-style:italic}.vr{color:#E06C75}.st{color:#98C379}.nb{color:#D19A66}
+.code-results{border-top:1px solid rgba(255,255,255,.06);padding:12px 16px;background:#0A0E14}
+.cr-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.cr-ht{font-size:11px;font-weight:700;color:rgba(255,255,255,.35);font-family:'Geist Mono',monospace;letter-spacing:.5px;text-transform:uppercase}
+.cr-badge-pass{background:rgba(39,201,63,.15);color:#27C93F;padding:2px 8px;border-radius:4px;font-size:10.5px;font-weight:700;font-family:'Geist Mono',monospace}
+.cr-row{display:flex;align-items:center;gap:8px;padding:3px 0;font-family:'Geist Mono',monospace;font-size:11px}
+.cr-ok{color:#27C93F;font-weight:700;font-size:12px}.cr-fail{color:#FF5F56}
+.cr-lbl{color:rgba(255,255,255,.38);flex:1}
+.cr-t{color:rgba(255,255,255,.2);font-size:10px;margin-left:auto}
+.cr-sum{display:flex;justify-content:space-between;align-items:center;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.06)}
+.cr-score{color:#27C93F;font-weight:800;font-size:12px;font-family:'Geist Mono',monospace}
+.cr-meta{color:rgba(255,255,255,.22);font-size:10.5px;font-family:'Geist Mono',monospace}
+
+/* ══ LEARNING MODULE MOCKUP ══ */
+.lm-mock{background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:var(--sh-lg);overflow:hidden}
+.lm-topbar{background:var(--bg);border-bottom:1px solid var(--border);padding:12px 18px;display:flex;justify-content:space-between;align-items:center}
+.lm-title{font-size:13px;font-weight:700;color:var(--ink)}
+.lm-prog-wrap{display:flex;align-items:center;gap:8px}
+.lm-pb{width:80px;height:6px;background:var(--border);border-radius:100px;overflow:hidden}
+.lm-pf{height:100%;background:var(--blue);width:65%;border-radius:100px}
+.lm-pct{font-size:11px;font-weight:700;color:var(--blue)}
+.lm-body{display:grid;grid-template-columns:210px 1fr;min-height:320px}
+.lm-sidebar{border-right:1px solid var(--border);padding:12px 0;background:#fff}
+.lm-item{display:flex;align-items:flex-start;gap:9px;padding:10px 16px;cursor:pointer;transition:background .12s}
+.lm-item:hover{background:var(--bg)}
+.lm-item.on{background:var(--blue-bg)}
+.lm-ic{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;margin-top:1px;font-weight:700}
+.ic-done{background:var(--green-bg);color:var(--green)}
+.ic-on{background:var(--blue-bg);color:var(--blue)}
+.ic-lock{background:var(--bg2);color:var(--ink4)}
+.lm-info{flex:1;min-width:0}
+.lm-name{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.3}
+.lm-item.on .lm-name{color:var(--blue)}
+.lm-sub{font-size:11px;color:var(--ink4);margin-top:2px}
+.lm-dur{font-size:10px;color:var(--ink4);margin-left:auto;flex-shrink:0;font-family:'Geist Mono',monospace;margin-top:2px}
+.lm-content{padding:20px 24px;background:#fff}
+.lm-video{width:100%;height:116px;background:linear-gradient(135deg,#0C1A4B,#1e40af,#1d4ed8);border-radius:11px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;margin-bottom:15px}
+.lm-video::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 40%,rgba(255,255,255,.08),transparent)}
+.lm-play-btn{width:40px;height:40px;background:rgba(255,255,255,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;backdrop-filter:blur(8px);border:1.5px solid rgba(255,255,255,.25);transition:all .2s;cursor:pointer}
+.lm-play-btn:hover{background:rgba(255,255,255,.28);transform:scale(1.08)}
+.lm-v-label{position:absolute;bottom:9px;left:13px;font-size:10px;font-weight:700;color:rgba(255,255,255,.6)}
+.lm-v-dur{position:absolute;bottom:9px;right:13px;background:rgba(0,0,0,.45);color:#fff;padding:2px 7px;border-radius:4px;font-size:10px;font-family:'Geist Mono',monospace}
+.lm-ct-title{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:6px;letter-spacing:-.3px}
+.lm-ct-desc{font-size:12px;color:var(--ink3);line-height:1.65;margin-bottom:13px}
+.lm-resources{display:flex;flex-direction:column;gap:6px}
+.lm-res{display:flex;align-items:center;gap:9px;padding:8px 10px;background:var(--bg);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .12s}
+.lm-res:hover{background:var(--bg2);border-color:var(--border2)}
+.lm-res-icon{font-size:14px;flex-shrink:0}
+.lm-res-name{font-size:12px;font-weight:600;color:var(--ink2);flex:1}
+.lm-res-size{font-size:10.5px;color:var(--ink4);font-family:'Geist Mono',monospace}
+.lm-res-dl{font-size:12px;color:var(--blue);margin-left:4px;opacity:0;transition:opacity .12s}
+.lm-res:hover .lm-res-dl{opacity:1}
+
+/* ══ ANALYTICS MOCKUP ══ */
+.an-mock{background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:var(--sh-lg);overflow:hidden}
+.an-topbar{background:var(--bg);border-bottom:1px solid var(--border);padding:12px 18px;display:flex;justify-content:space-between;align-items:center}
+.an-title{font-size:13px;font-weight:700;color:var(--ink);display:flex;align-items:center;gap:7px}
+.an-tabs{display:flex;gap:3px}
+.an-tab{font-size:11.5px;font-weight:600;color:var(--ink4);padding:5px 11px;border-radius:6px;cursor:pointer;transition:all .14s}
+.an-tab.on{background:#fff;color:var(--blue);box-shadow:var(--sh)}
+.an-body{padding:18px 20px}
+.an-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.an-kpi{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:13px 14px}
+.an-kn{font-size:21px;font-weight:900;letter-spacing:-1px;color:var(--ink)}
+.an-kl{font-size:11px;color:var(--ink4);margin-top:2px;font-weight:500}
+.an-kt{font-size:10.5px;font-weight:700;margin-top:5px}
+.an-chart-box{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.an-chart-title{font-size:10.5px;font-weight:700;color:var(--ink4);letter-spacing:.6px;text-transform:uppercase;margin-bottom:10px}
+.an-bars{display:flex;align-items:flex-end;gap:6px;height:68px}
+.an-bar{border-radius:4px 4px 0 0;flex:1;min-width:0;cursor:pointer;transition:opacity .18s}
+.an-bar:hover{opacity:.75}
+.an-blabels{display:flex;gap:6px;margin-top:5px}
+.an-bl{flex:1;font-size:9px;color:var(--ink4);text-align:center;font-family:'Geist Mono',monospace}
+.an-lb{background:var(--bg);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.an-lbh{display:grid;grid-template-columns:32px 1fr 56px 52px;gap:8px;padding:8px 14px;background:#fff;border-bottom:1px solid var(--border);font-size:10.5px;font-weight:700;color:var(--ink4)}
+.an-lbr{display:grid;grid-template-columns:32px 1fr 56px 52px;gap:8px;padding:9px 14px;align-items:center;border-bottom:1px solid var(--border);transition:background .1s;cursor:pointer}
+.an-lbr:last-child{border-bottom:none}
+.an-lbr:hover{background:#fff}
+.an-rk{font-size:14px}
+.an-nm{font-size:12.5px;font-weight:600;color:var(--ink)}
+.an-sc{font-size:12px;font-weight:800;color:var(--green);text-align:right;font-family:'Geist Mono',monospace}
+.an-tm{font-size:11px;color:var(--ink4);text-align:right;font-family:'Geist Mono',monospace}
+
+/* ══ COMPARE TABLE ══ */
+.cmp-scroll{overflow-x:auto;border-radius:14px;border:1px solid var(--border);overflow:hidden}
+table.ctbl{width:100%;border-collapse:collapse}
+.ctbl thead th{padding:13px 18px;text-align:left;font-size:12px;font-weight:700;color:var(--ink3);background:var(--bg);border-bottom:1px solid var(--border2);white-space:nowrap}
+.ctbl thead th.us{background:var(--blue);color:#fff;position:relative}
+.ctbl thead th.us::before{content:'Best';position:absolute;top:-1px;left:50%;transform:translateX(-50%) translateY(-100%);background:var(--blue-dark);color:#fff;font-size:9.5px;font-weight:800;padding:3px 9px;border-radius:5px 5px 0 0}
+.ctbl tbody tr{border-bottom:1px solid var(--border)}
+.ctbl tbody tr:last-child{border-bottom:none}
+.ctbl tbody tr:hover td{background:#FAFAFA}
+.ctbl tbody tr:hover td.us{background:#DBEAFE}
+.ctbl td{padding:11px 18px;font-size:13px;color:var(--ink3);vertical-align:middle}
+.ctbl td.feat{font-weight:700;color:var(--ink)}
+.ctbl td.us{background:var(--blue-bg);color:var(--blue);font-weight:700}
+.ck{color:var(--green);font-weight:800}.cx{color:var(--border2)}.cp{color:var(--yellow);font-size:12px;font-weight:600}
+
+/* ══ PRICING ══ */
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:52px;max-width:820px;margin-left:auto;margin-right:auto}
+.tier{background:#fff;padding:32px 28px;transition:background .14s;position:relative}
+.tier:hover{background:var(--bg)}
+.tier.hot{background:var(--ink)}
+.tier.hot:hover{background:#181818}
+.tier-tag{position:absolute;top:0;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:10px;font-weight:800;padding:3px 12px;border-radius:0 0 7px 7px;white-space:nowrap}
+.tier-icon{font-size:24px;margin-bottom:12px}
+.tier-name{font-size:14.5px;font-weight:800;color:var(--ink);margin-bottom:8px;letter-spacing:-.3px}
+.tier.hot .tier-name{color:#fff}
+.tier-desc{font-size:13px;color:var(--ink3);line-height:1.7}
+.tier.hot .tier-desc{color:rgba(255,255,255,.45)}
+
+/* ══ TESTIMONIALS ══ */
+.tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:52px}
+.tcard{background:#fff;padding:30px 26px;transition:background .14s}
+.tcard:hover{background:var(--bg)}
+.tstars{font-size:14px;letter-spacing:2px;margin-bottom:14px;color:#FBBF24}
+.ttext{font-size:14px;color:var(--ink2);line-height:1.8;font-style:italic;margin-bottom:20px}
+.tauth{display:flex;align-items:center;gap:11px}
+.tav{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0}
+.tname{font-size:13.5px;font-weight:700;color:var(--ink)}
+.trole{font-size:11.5px;color:var(--ink4);margin-top:2px}
+
+/* ══ CTA BAND ══ */
+.cta-band{background:var(--ink);padding:80px 5vw;text-align:center;position:relative;overflow:hidden}
+.cta-band::before{content:'';position:absolute;top:-150px;left:50%;transform:translateX(-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.18),transparent 70%);pointer-events:none}
+.cta-band h2{font-size:clamp(28px,4.5vw,54px);font-weight:900;letter-spacing:-2.5px;color:#fff;line-height:1;margin-bottom:16px;position:relative;z-index:1}
+.cta-band p{font-size:16px;color:rgba(255,255,255,.42);margin-bottom:36px;position:relative;z-index:1}
+.cta-actions{display:flex;align-items:center;justify-content:center;gap:13px;flex-wrap:wrap;position:relative;z-index:1}
+.btn-wht{background:#fff;color:var(--ink);padding:14px 30px;border-radius:9px;font-size:14px;font-weight:700;border:none;font-family:'Geist',sans-serif;cursor:pointer;transition:all .15s}
+.btn-wht:hover{background:#F4F4F5;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:rgba(255,255,255,.5);padding:14px 26px;border-radius:9px;font-size:14px;font-weight:600;border:1px solid rgba(255,255,255,.15);font-family:'Geist',sans-serif;cursor:pointer;transition:all .15s}
+.btn-ghost:hover{color:#fff;border-color:rgba(255,255,255,.35)}
+
+/* ══ FOOTER ══ */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:52px 5vw 36px}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr;gap:52px;padding-bottom:36px;border-bottom:1px solid var(--border)}
+.fb-desc{font-size:13px;color:var(--ink4);line-height:1.7;max-width:240px;margin-top:11px}
+.fb-email{display:inline-flex;align-items:center;gap:7px;margin-top:14px;font-size:13px;font-weight:600;color:var(--blue);text-decoration:none}
+.fb-email:hover{opacity:.75}
+.fh{font-size:10.5px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--ink4);margin-bottom:14px}
+.fl{list-style:none;display:flex;flex-direction:column;gap:10px}
+.fl a,.fl button{font-size:13px;color:var(--ink3);text-decoration:none;background:none;border:none;font-family:'Geist',sans-serif;cursor:pointer;padding:0;transition:color .12s;text-align:left}
+.fl a:hover,.fl button:hover{color:var(--ink)}
+.fbot{padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.fbot p{font-size:12px;color:var(--ink4)}
+
+/* ══ REVEAL ══ */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ════════════════════════════════════════
+   CONTACT MODAL
+   ════════════════════════════════════════ */
+.overlay{position:fixed;inset:0;z-index:1000;background:rgba(10,10,10,.6);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .22s ease}
+.overlay.open{opacity:1;pointer-events:auto}
+.modal{background:#fff;border-radius:22px;width:100%;max-width:580px;max-height:92vh;overflow-y:auto;overflow-x:hidden;box-shadow:0 40px 100px rgba(0,0,0,.28);transform:translateY(28px) scale(.96);transition:transform .28s cubic-bezier(.34,1.2,.64,1),opacity .28s ease;opacity:0;scrollbar-width:thin;scrollbar-color:var(--border2) transparent}
+.overlay.open .modal{transform:translateY(0) scale(1);opacity:1}
+
+/* modal header dark */
+.mhd{background:var(--ink);padding:30px 32px 28px;border-radius:22px 22px 0 0;position:relative;overflow:hidden}
+.mhd::before{content:'';position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.28),transparent 70%);pointer-events:none}
+.mhd::after{content:'';position:absolute;bottom:-60px;left:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(22,163,74,.12),transparent 70%);pointer-events:none}
+.m-close{position:absolute;top:20px;right:20px;width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.55);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .13s;z-index:2;font-family:'Geist',sans-serif}
+.m-close:hover{background:rgba(255,255,255,.16);color:#fff}
+.m-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.48);padding:5px 13px;border-radius:100px;font-size:11.5px;font-weight:700;margin-bottom:16px;position:relative;z-index:2}
+.m-badge-dot{width:6px;height:6px;border-radius:50%;background:#27C93F;animation:bdot 1.8s infinite}
+.mhd h2{font-size:24px;font-weight:900;letter-spacing:-1.2px;color:#fff;margin-bottom:7px;position:relative;z-index:2}
+.mhd p{font-size:14px;color:rgba(255,255,255,.42);line-height:1.6;position:relative;z-index:2;max-width:380px}
+
+/* progress bar */
+.m-prog-bar{height:3px;background:var(--border)}
+.m-prog-fill{height:100%;background:linear-gradient(90deg,var(--blue),#60A5FA);transition:width .38s cubic-bezier(.4,0,.2,1);width:33%}
+
+/* step indicator */
+.m-steps{display:flex;align-items:center;padding:20px 32px 0}
+.ms-item{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.ms-dot{width:30px;height:30px;border-radius:50%;border:2px solid var(--border2);color:var(--ink4);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;background:#fff;transition:all .25s;flex-shrink:0}
+.ms-dot.on{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 0 0 4px rgba(37,99,235,.12)}
+.ms-dot.done{background:var(--green);border-color:var(--green);color:#fff}
+.ms-lbl{font-size:12px;font-weight:600;color:var(--ink4);transition:color .25s;white-space:nowrap}
+.ms-item.on .ms-lbl{color:var(--ink);font-weight:700}
+.ms-item.done .ms-lbl{color:var(--green)}
+.ms-line{flex:1;height:1.5px;background:var(--border);margin:0 12px;min-width:20px;transition:background .25s}
+.ms-line.done{background:var(--green)}
+
+/* body */
+.mbody{padding:24px 32px 32px}
+.mpanel{display:none}
+.mpanel.on{display:block;animation:mfade .22s ease}
+@keyframes mfade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.mstep-h{font-size:20px;font-weight:900;letter-spacing:-.8px;color:var(--ink);margin-bottom:5px}
+.mstep-s{font-size:14px;color:var(--ink3);margin-bottom:22px;line-height:1.6}
+
+/* role grid */
+.m-roles{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:22px}
+.m-role{display:flex;flex-direction:column;gap:4px;padding:14px 13px;border-radius:11px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;transition:all .15s}
+.m-role:hover{border-color:var(--blue-mid);background:var(--blue-bg);transform:translateY(-1px)}
+.m-role.sel{border-color:var(--blue);background:var(--blue-bg);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.m-role-em{font-size:20px;margin-bottom:3px}
+.m-role-n{font-size:13px;font-weight:800;color:var(--ink)}
+.m-role.sel .m-role-n{color:var(--blue)}
+.m-role-d{font-size:11.5px;color:var(--ink3);line-height:1.4}
+
+/* fields */
+.mf{margin-bottom:14px}
+.mf label{display:block;font-size:11.5px;font-weight:700;color:var(--ink2);margin-bottom:7px;text-transform:uppercase;letter-spacing:.3px}
+.mf input,.mf select,.mf textarea{width:100%;padding:12px 14px;border:1.5px solid var(--border2);border-radius:9px;font-family:'Geist',sans-serif;font-size:14px;color:var(--ink);background:#fff;outline:none;transition:border-color .14s,box-shadow .14s;-webkit-appearance:none;appearance:none}
+.mf input::placeholder,.mf textarea::placeholder{color:var(--ink4)}
+.mf input:focus,.mf select:focus,.mf textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.mf select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%236E6E6E' d='M5 6L0 0h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.mf textarea{resize:none;height:88px;line-height:1.65}
+.mf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* student slider */
+.sl-wrap{margin-bottom:18px}
+.sl-wrap label{display:block;font-size:11.5px;font-weight:700;color:var(--ink2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.3px}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:4px;border-radius:2px;background:var(--border2);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:2.5px solid var(--blue);box-shadow:0 2px 8px rgba(37,99,235,.28);cursor:pointer;transition:transform .15s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
+.sl-labs{display:flex;justify-content:space-between;font-size:10px;color:var(--ink4);margin-top:7px;font-family:'Geist Mono',monospace}
+.sl-val{text-align:center;font-size:18px;font-weight:900;letter-spacing:-1px;color:var(--blue);font-family:'Geist Mono',monospace;margin-top:9px}
+
+/* chips */
+.chip-lbl{font-size:11.5px;font-weight:700;color:var(--ink2);margin-bottom:9px;text-transform:uppercase;letter-spacing:.3px}
+.m-chips{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:20px}
+.chip{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:9px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;transition:all .14s;font-size:12.5px;font-weight:600;color:var(--ink2)}
+.chip:hover{border-color:var(--blue-mid);background:var(--blue-bg)}
+.chip.sel{border-color:var(--blue);background:var(--blue-bg);color:var(--blue)}
+.chk{width:16px;height:16px;border-radius:4px;border:1.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:900;color:#fff;flex-shrink:0;background:#fff;transition:all .14s}
+.chip.sel .chk{background:var(--blue);border-color:var(--blue)}
+
+/* modal buttons */
+.mbtns{display:flex;gap:10px;margin-top:22px}
+.mbtn-n{flex:1;background:var(--blue);color:#fff;padding:13px 20px;border-radius:9px;font-size:14px;font-weight:800;border:none;font-family:'Geist',sans-serif;cursor:pointer;transition:all .14s;box-shadow:0 2px 10px rgba(37,99,235,.26)}
+.mbtn-n:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 6px 18px rgba(37,99,235,.32)}
+.mbtn-n:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
+.mbtn-b{background:#fff;color:var(--ink3);padding:13px 16px;border-radius:9px;font-size:14px;font-weight:600;border:1.5px solid var(--border2);cursor:pointer;font-family:'Geist',sans-serif;transition:all .14s}
+.mbtn-b:hover{background:var(--bg2);color:var(--ink)}
+
+/* modal sidebar info strip */
+.m-info-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px;padding:14px;background:var(--bg);border:1px solid var(--border);border-radius:11px}
+.m-info-item{text-align:center}
+.m-info-num{font-size:15px;font-weight:900;color:var(--ink);letter-spacing:-.5px}
+.m-info-lbl{font-size:10.5px;color:var(--ink4);margin-top:2px}
+
+/* success screen */
+#m-succ{display:none;padding:40px 32px;text-align:center;animation:mfade .35s ease}
+#m-succ.on{display:block}
+.succ-ring{width:76px;height:76px;border-radius:50%;background:var(--green-bg);border:2px solid var(--green-mid);display:flex;align-items:center;justify-content:center;font-size:34px;margin:0 auto 22px;animation:ringpop .55s cubic-bezier(.175,.885,.32,1.275)}
+@keyframes ringpop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}
+.succ-h{font-size:24px;font-weight:900;letter-spacing:-1px;margin-bottom:10px;color:var(--ink)}
+.succ-p{font-size:14.5px;color:var(--ink3);line-height:1.75;max-width:340px;margin:0 auto 24px}
+.ref-box{display:inline-flex;align-items:center;gap:12px;background:var(--bg);border:1px solid var(--border);border-radius:13px;padding:14px 20px;margin-bottom:22px}
+.rb-lbl{font-size:10.5px;color:var(--ink4);font-weight:700;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
+.rb-val{font-size:17px;font-weight:900;color:var(--blue);font-family:'Geist Mono',monospace;letter-spacing:1.5px}
+.succ-mail{font-size:13.5px;color:var(--ink3);margin-bottom:26px}
+.succ-mail a{color:var(--blue);font-weight:700;text-decoration:none}
+.succ-close{background:var(--ink);color:#fff;padding:12px 30px;border-radius:9px;font-size:14px;font-weight:700;border:none;cursor:pointer;font-family:'Geist',sans-serif;transition:all .14s}
+.succ-close:hover{background:#222;transform:translateY(-1px)}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:980px){
+  .dash-body{grid-template-columns:1fr}.dash-side{display:none}
+  .split{grid-template-columns:1fr;gap:40px}.split.rev{direction:ltr}
+  .lm-body{grid-template-columns:1fr}.lm-sidebar{display:none}
+  .code-content{grid-template-columns:1fr}.code-prob{display:none}
+  .an-kpis{grid-template-columns:1fr 1fr}
+  .tgrid,.tier-grid{grid-template-columns:1fr}
+  .fg{grid-template-columns:1fr 1fr}
+  .stats-strip{flex-wrap:wrap;gap:20px;justify-content:center}.ss-item{border-right:none;padding:0 24px}
+  .sec{padding:72px 4.5vw}
+  .hero{padding:104px 4.5vw 0}
+}
+@media(max-width:640px){
+  nav{padding:0 4vw}.nav-links{display:none}
+  h1{font-size:clamp(34px,10vw,54px);letter-spacing:-2.5px}
+  .hero-sub{font-size:16px}
+  .hero-actions{flex-direction:column;align-items:stretch}
+  .btn-blue,.btn-out{text-align:center;justify-content:center}
+  .hero-proof{gap:10px}
+  .dm-stats{grid-template-columns:1fr 1fr}
+  .dm-panels{grid-template-columns:1fr}
+  .fg{grid-template-columns:1fr}
+  .cta-actions{flex-direction:column;align-items:stretch}
+  .btn-wht,.btn-ghost{text-align:center}
+  .mhd{padding:24px 22px 22px}
+  .mbody{padding:20px 22px 26px}
+  .m-roles{grid-template-columns:1fr 1fr}
+  .m-chips{grid-template-columns:1fr}
+  .mf-row{grid-template-columns:1fr}
+  .mbtns{flex-direction:column}
+  .m-steps{padding:16px 22px 0}
+  .ms-lbl{display:none}
+  .m-info-strip{grid-template-columns:1fr 1fr}
+  .ctbl th,.ctbl td{padding:9px 11px;font-size:12px}
+}
+@media(max-width:420px){
+  nav{padding:0 3.5vw}
+  h1{font-size:30px;letter-spacing:-1.5px}
+  .m-roles{grid-template-columns:1fr}
+  .tier-grid,.tgrid{gap:0}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     CONTACT MODAL
+══════════════════════════════════ -->
+<div class="overlay" id="overlay" onclick="handleBg(event)">
+<div class="modal" id="modal">
+
+  <div class="mhd">
+    <button class="m-close" onclick="closeModal()">✕</button>
+    <div class="m-badge"><span class="m-badge-dot"></span>Responding within 1 business day</div>
+    <h2>Book a Demo 🎓</h2>
+    <p>Tell us about your institution — we'll build a plan and demo that fits your exact needs.</p>
+  </div>
+
+  <div class="m-prog-bar"><div class="m-prog-fill" id="mprog"></div></div>
+
+  <div class="m-steps" id="msteps">
+    <div class="ms-item on" id="msi1"><div class="ms-dot on" id="msd1">1</div><div class="ms-lbl">About you</div></div>
+    <div class="ms-line" id="msl1"></div>
+    <div class="ms-item" id="msi2"><div class="ms-dot" id="msd2">2</div><div class="ms-lbl">Institution</div></div>
+    <div class="ms-line" id="msl2"></div>
+    <div class="ms-item" id="msi3"><div class="ms-dot" id="msd3">3</div><div class="ms-lbl">Your needs</div></div>
+  </div>
+
+  <div class="mbody">
+
+    <!-- STEP 1 -->
+    <div class="mpanel on" id="mp1">
+      <div class="mstep-h">Who are you? 👋</div>
+      <div class="mstep-s">Helps us route you to the right specialist on our team.</div>
+      <div class="m-roles" id="m-roles">
+        <div class="m-role" data-r="hod"><div class="m-role-em">👨‍🏫</div><div class="m-role-n">Head of Department</div><div class="m-role-d">Evaluating tools for your department</div></div>
+        <div class="m-role" data-r="admin"><div class="m-role-em">🏛️</div><div class="m-role-n">Administrator</div><div class="m-role-d">Academic director or registrar</div></div>
+        <div class="m-role" data-r="it"><div class="m-role-em">💻</div><div class="m-role-n">IT / Tech Lead</div><div class="m-role-d">Evaluating infra and integrations</div></div>
+        <div class="m-role" data-r="edtech"><div class="m-role-em">🤝</div><div class="m-role-n">EdTech / Reseller</div><div class="m-role-d">Offering thriveQ to clients</div></div>
+      </div>
+      <div class="m-info-strip">
+        <div class="m-info-item"><div class="m-info-num">1 day</div><div class="m-info-lbl">Response time</div></div>
+        <div class="m-info-item"><div class="m-info-num">7 days</div><div class="m-info-lbl">Go-live SLA</div></div>
+        <div class="m-info-item"><div class="m-info-num">Free</div><div class="m-info-lbl">Migration</div></div>
+      </div>
+      <div class="mf-row">
+        <div class="mf"><label>Full Name</label><input type="text" id="mfn" placeholder="Full Name" /></div>
+      </div>
+      <div class="mf"><label>Work email</label><input type="email" id="mem" placeholder="you@university.edu" /></div>
+      <div class="mf"><label>Phone (optional)</label><input type="tel" id="mph" placeholder="+91 90481 41192" /></div>
+      <div class="mbtns"><button class="mbtn-n" onclick="mgo(2)">Continue →</button></div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="mpanel" id="mp2">
+      <div class="mstep-h">Your institution. 🏫</div>
+      <div class="mstep-s">We'll tailor your demo and plan to your actual scale and setup.</div>
+      <div class="mf"><label>Institution name</label><input type="text" id="minst" placeholder="e.g. VIT Chennai, Amity University" /></div>
+      <div class="mf-row">
+        <div class="mf"><label>City</label><input type="text" id="mcity" placeholder="Pune" /></div>
+        <div class="mf"><label>State</label>
+          <select id="mstate">
+            <option value="">Select state</option>
+            <option>Maharashtra</option><option>Karnataka</option><option>Tamil Nadu</option>
+            <option>Uttar Pradesh</option><option>Delhi NCR</option><option>Gujarat</option>
+            <option>Telangana</option><option>Rajasthan</option><option>West Bengal</option>
+            <option>Kerala</option><option>Madhya Pradesh</option><option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="mf"><label>Institution type</label>
+        <select id="mitype">
+          <option value="">Select type</option>
+          <option>Engineering College</option><option>University</option>
+          <option>Deemed University</option><option>Government College</option>
+          <option>Private College</option><option>Online / EdTech</option><option>Training Institute</option>
+        </select>
+      </div>
+      <div class="sl-wrap">
+        <label>Estimated students</label>
+        <input type="range" id="msl" min="0" max="4" step="1" value="1" oninput="mslUpdate(this.value)" />
+        <div class="sl-labs"><span>&lt;500</span><span>1,000</span><span>2,500</span><span>5,000</span><span>10K+</span></div>
+        <div class="sl-val" id="mslv">~1,000 students</div>
+      </div>
+      <div class="mf"><label>Currently using</label>
+        <select id="mcurr">
+          <option value="">Current setup?</option>
+          <option>Moodle</option><option>Canvas</option><option>Google Classroom</option>
+          <option>HackerRank</option><option>In-house / Custom</option><option>Nothing yet</option><option>Other</option>
+        </select>
+      </div>
+      <div class="mbtns">
+        <button class="mbtn-b" onclick="mgo(1)">← Back</button>
+        <button class="mbtn-n" onclick="mgo(3)">Continue →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="mpanel" id="mp3">
+      <div class="mstep-h">What do you need? 🎯</div>
+      <div class="mstep-s">Pick features — your demo will focus on exactly these.</div>
+      <div class="chip-lbl">Features you're interested in</div>
+      <div class="m-chips" id="mchips">
+        <div class="chip"><div class="chk"></div>📝 MCQ Assessments</div>
+        <div class="chip"><div class="chk"></div>💻 Coding Challenges</div>
+        <div class="chip"><div class="chk"></div>✍️ Essay / Written</div>
+        <div class="chip"><div class="chk"></div>📚 Learning Modules</div>
+        <div class="chip"><div class="chk"></div>📈 Analytics & Reports</div>
+        <div class="chip"><div class="chk"></div>🎨 White Labelling</div>
+        <div class="chip"><div class="chk"></div>🔒 SSO / LTI</div>
+        <div class="chip"><div class="chk"></div>🏆 Leaderboards</div>
+      </div>
+      <div class="mf"><label>Timeline to go live</label>
+        <select id="mtl">
+          <option value="">When do you need this?</option>
+          <option>ASAP (within 2 weeks)</option><option>Next month</option>
+          <option>This semester</option><option>Just exploring</option>
+        </select>
+      </div>
+      <div class="mf"><label>Anything else?</label>
+        <textarea id="mmsg" placeholder="Tell us about your setup, constraints, or what you'd specifically like to see in the demo…"></textarea>
+      </div>
+      <div class="mbtns">
+        <button class="mbtn-b" onclick="mgo(2)">← Back</button>
+        <button class="mbtn-n" onclick="msub()" id="msubbtn">Send Request →</button>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div id="m-succ">
+      <div class="succ-ring">✓</div>
+      <div class="succ-h">You're all set! 🎉</div>
+      <p class="succ-p">Our team at thriveQ will review your details and reach out within one business day with a personalised demo and quote.</p>
+      <div class="ref-box">
+        <div><div class="rb-lbl">Reference ID</div><div class="rb-val" id="mrefid">TQ-——</div></div>
+      </div>
+      <div class="succ-mail">A confirmation goes to <a href="mailto:thriveqservices@gmail.com">thriveqservices@gmail.com</a></div>
+      <button class="succ-close" onclick="closeModal()">Close ✕</button>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════════════
+     NAV
+══════════════════════════════════ -->
+<nav id="navbar">
+  <a href="#" class="logo"><div class="logo-sq">tQ</div>thriveQ</a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#compare">Compare</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+  </ul>
+  <button class="nav-cta" onclick="openModal()">Get a Demo →</button>
+</nav>
+
+<!-- ══════════════════════════════════
+     HERO
+══════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="badge"><span class="badge-dot"></span>thriveQ LMS — 5,000+ concurrent users · Now live</div>
+  <h1>The smarter way<br>to <em>assess</em> students.</h1>
+  <p class="hero-sub">MCQs, live coding challenges, essay writing, and learning modules — one platform, built for Indian higher education.</p>
+  <div class="hero-actions">
+    <button class="btn-blue" onclick="openModal()">Get a Demo →</button>
+    <a href="#features" class="btn-out">See how it works</a>
+  </div>
+  <div class="hero-proof">
+    <span class="hp">No per-student fees</span>
+    <span class="hp">Free migration from Moodle</span>
+    <span class="hp">99.9% uptime SLA</span>
+    <span class="hp">Reply within 1 business day</span>
+  </div>
+
+  <!-- HERO DASHBOARD MOCKUP -->
+  <div class="dash-wrap reveal">
+    <div class="dash-bar">
+      <div class="dbar-dots"><div class="dbd dbd-r"></div><div class="dbd dbd-y"></div><div class="dbd dbd-g"></div></div>
+      <div class="dbar-url">lms.thriveq.in / dashboard</div>
+      <div class="dbar-live">Live</div>
+    </div>
+    <div class="dash-body">
+      <div class="dash-side">
+        <div class="ds-section">Main</div>
+        <div class="ds-item on"><span class="ds-ico">📊</span>Dashboard</div>
+        <div class="ds-item"><span class="ds-ico">📝</span>Assessments</div>
+        <div class="ds-item"><span class="ds-ico">💻</span>Coding Lab</div>
+        <div class="ds-item"><span class="ds-ico">📚</span>Modules</div>
+        <div class="ds-hr"></div>
+        <div class="ds-section">Manage</div>
+        <div class="ds-item"><span class="ds-ico">👥</span>Students</div>
+        <div class="ds-item"><span class="ds-ico">📈</span>Analytics</div>
+        <div class="ds-item"><span class="ds-ico">🏆</span>Leaderboard</div>
+        <div class="ds-hr"></div>
+        <div class="ds-item"><span class="ds-ico">⚙️</span>Settings</div>
+      </div>
+      <div class="dash-main">
+        <div class="dm-greet">Good morning, Prof. Sharma 👋</div>
+        <div class="dm-sub">CSE-2024 · Section A · 156 students enrolled · 3 active assessments</div>
+        <div class="dm-stats">
+          <div class="dm-stat">
+            <div class="dm-stat-n">156</div>
+            <div class="dm-stat-l">Total Students</div>
+            <div class="dm-stat-c cu">↑ 12 this week</div>
+          </div>
+          <div class="dm-stat">
+            <div class="dm-stat-n">8</div>
+            <div class="dm-stat-l">Assessments</div>
+            <div class="dm-stat-c cb">3 live now</div>
+          </div>
+          <div class="dm-stat">
+            <div class="dm-stat-n">84%</div>
+            <div class="dm-stat-l">Avg. Score</div>
+            <div class="dm-stat-c cu">↑ 6% vs last</div>
+          </div>
+          <div class="dm-stat">
+            <div class="dm-stat-n">34</div>
+            <div class="dm-stat-l">Pending Review</div>
+            <div class="dm-stat-c cd">4 new essays</div>
+          </div>
+        </div>
+        <div class="dm-panels">
+          <div class="dm-panel">
+            <div class="dm-panel-h"><div class="dp-title">Recent Submissions</div><div class="dp-more">View all →</div></div>
+            <div class="dm-row">
+              <div class="dm-rl"><div class="dm-av" style="background:#2563EB">A</div><div><div class="dm-nm">Arjun Mehta</div><div class="dm-s">Coding · Two Sum</div></div></div>
+              <span class="pill pg">100%</span>
+            </div>
+            <div class="dm-row">
+              <div class="dm-rl"><div class="dm-av" style="background:#7C3AED">P</div><div><div class="dm-nm">Priya Singh</div><div class="dm-s">MCQ · Data Structures</div></div></div>
+              <span class="pill pb">88%</span>
+            </div>
+            <div class="dm-row">
+              <div class="dm-rl"><div class="dm-av" style="background:#16A34A">R</div><div><div class="dm-nm">Rohan Das</div><div class="dm-s">Essay · OS Concepts</div></div></div>
+              <span class="pill py">Review</span>
+            </div>
+            <div class="dm-row">
+              <div class="dm-rl"><div class="dm-av" style="background:#EA580C">S</div><div><div class="dm-nm">Sneha Patil</div><div class="dm-s">Coding · Binary Search</div></div></div>
+              <span class="pill pg">95%</span>
+            </div>
+          </div>
+          <div class="dm-panel">
+            <div class="dm-panel-h"><div class="dp-title">Score Distribution</div><div class="dp-more">Export</div></div>
+            <div class="mini-chart-wrap">
+              <div class="mini-bars">
+                <div class="mb" style="height:22%"></div>
+                <div class="mb" style="height:38%"></div>
+                <div class="mb" style="height:58%"></div>
+                <div class="mb mhi" style="height:100%"></div>
+                <div class="mb mhi" style="height:84%"></div>
+                <div class="mb" style="height:65%"></div>
+                <div class="mb" style="height:46%"></div>
+                <div class="mb" style="height:28%"></div>
+              </div>
+              <div class="mb-labels">
+                <div class="mb-label">0–50</div><div class="mb-label">51–60</div><div class="mb-label">61–70</div>
+                <div class="mb-label">71–80</div><div class="mb-label">81–90</div><div class="mb-label">91–95</div>
+                <div class="mb-label">96–98</div><div class="mb-label">99+</div>
+              </div>
+            </div>
+            <div class="mini-legend">
+              <div class="ml-item"><div class="ml-dot" style="background:var(--blue)"></div>Top: 98%</div>
+              <div class="ml-item"><div class="ml-dot" style="background:var(--green)"></div>Avg: 84%</div>
+              <div class="ml-item"><div class="ml-dot" style="background:var(--red)"></div>Low: 44%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="ss-item"><div class="ss-n">5<b>K+</b></div><div class="ss-l">Concurrent users</div></div>
+  <div class="ss-item"><div class="ss-n">&lt;200<b>ms</b></div><div class="ss-l">API response (p95)</div></div>
+  <div class="ss-item"><div class="ss-n">99<b>.9%</b></div><div class="ss-l">Uptime SLA</div></div>
+  <div class="ss-item"><div class="ss-n">4<b>x</b></div><div class="ss-l">Faster than Moodle</div></div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="mq-inner">
+    <span class="h">MCQ Assessments</span><span>Live Code Execution</span><span class="h">Essay Writing Portal</span><span>White Labelling</span><span class="h">Leaderboards</span><span>Role-Based Access</span><span class="h">Question Bank</span><span>Audit Logs</span><span class="h">Real-time Analytics</span><span>Judge0 Sandbox</span><span class="h">5,000 Concurrent Users</span><span>Supabase Powered</span><span class="h">Class → Section → Zone</span><span>Partial Marking</span><span class="h">Negative Marking</span><span>LaTeX Support</span>
+    <span class="h">MCQ Assessments</span><span>Live Code Execution</span><span class="h">Essay Writing Portal</span><span>White Labelling</span><span class="h">Leaderboards</span><span>Role-Based Access</span><span class="h">Question Bank</span><span>Audit Logs</span><span class="h">Real-time Analytics</span><span>Judge0 Sandbox</span><span class="h">5,000 Concurrent Users</span><span>Supabase Powered</span><span class="h">Class → Section → Zone</span><span>Partial Marking</span><span class="h">Negative Marking</span><span>LaTeX Support</span>
+  </div>
+</div>
+
+<!-- ══ FEATURE 1: MCQ ══ -->
+<section class="sec" id="features">
+  <div class="split reveal">
+    <div>
+      <span class="kicker">MCQ Assessments</span>
+      <p class="tagline">Every question type.<br><em>Zero compromise.</em></p>
+      <p class="sec-desc">LaTeX math, image-based options, single or multi-select, negative marking, shuffled order. Auto-graded the instant students submit.</p>
+    </div>
+    <div class="mcq-mock">
+      <div class="mcq-top">
+        <div class="mcq-title">Data Structures Quiz · Q6 of 20</div>
+        <div class="mcq-timer">⏱ 32:14</div>
+      </div>
+      <div class="mcq-prog-bar"><div class="mcq-prog-fill"></div></div>
+      <div class="mcq-body">
+        <div class="mcq-qnum">Question 6 of 20 · 5 Marks · Negative: −2</div>
+        <div class="mcq-q">What is the time complexity of the following binary search implementation?</div>
+        <div class="mcq-code">def binary_search(arr, target):
+    lo, hi = 0, len(arr) - 1
+    while lo &lt;= hi:
+        mid = (lo + hi) // 2
+        if arr[mid] == target: return mid
+        elif arr[mid] &lt; target: lo = mid + 1
+        else: hi = mid - 1
+    return -1</div>
+        <div class="mcq-opt"><div class="mcq-circle"></div><div class="mcq-ot">O(n) — Linear scan</div></div>
+        <div class="mcq-opt s"><div class="mcq-circle"></div><div class="mcq-ot">O(log n) ← Your answer</div></div>
+        <div class="mcq-opt ok"><div class="mcq-circle"></div><div class="mcq-ot">O(log n) · Correct ✓</div></div>
+        <div class="mcq-opt"><div class="mcq-circle"></div><div class="mcq-ot">O(n²) — Quadratic</div></div>
+      </div>
+      <div class="mcq-nav">
+        <div class="qn qn-d">1</div><div class="qn qn-d">2</div><div class="qn qn-d">3</div>
+        <div class="qn qn-f">4</div><div class="qn qn-d">5</div><div class="qn qn-c">6</div>
+        <div class="qn qn-e">7</div><div class="qn qn-e">8</div><div class="qn qn-e">9</div><div class="qn qn-e">10</div>
+        <div class="qn qn-e">11</div><div class="qn qn-e">12</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURE 2: CODING ══ -->
+<section class="sec alt">
+  <div class="split rev reveal">
+    <div>
+      <span class="kicker">Coding Challenges</span>
+      <p class="tagline">Write code.<br><em>See results live.</em></p>
+      <p class="sec-desc">LeetCode-style problems with public examples and hidden test cases. Isolated Judge0 sandboxes. Partial marks per test. Python, Java, C++, JavaScript and more.</p>
+    </div>
+    <div class="code-mock">
+      <div class="code-topbar">
+        <div class="ctd ctd-r"></div><div class="ctd ctd-y"></div><div class="ctd ctd-g"></div>
+        <span class="code-fname">solution.py</span>
+        <span class="code-lang-tag">Python 3.11</span>
+      </div>
+      <div class="code-content">
+        <div class="code-prob">
+          <div class="cp-badge">
+            <span class="cp-tag cp-medium">Medium</span>
+            <span class="cp-tag cp-pts">50 pts</span>
+          </div>
+          <div class="cp-title">Two Sum</div>
+          <div class="cp-text">Given an array of integers and a target, return indices of the two numbers that add up to target. Each input has exactly one solution.</div>
+          <div class="cp-example">
+            <strong>Example</strong>
+            Input: nums=[2,7,11,15], target=9<br>
+            Output: [0,1]<br>
+            Explanation: nums[0]+nums[1]=9
+          </div>
+        </div>
+        <div class="code-editor-pane">
+          <pre class="code-pre"><span class="cm"># O(n) hashmap solution</span>
+
+<span class="kw">class</span> <span class="fn">Solution</span>:
+  <span class="kw">def</span> <span class="fn">twoSum</span>(<span class="vr">self</span>, <span class="vr">nums</span>:
+      <span class="fn">List</span>[<span class="nb">int</span>], <span class="vr">target</span>: <span class="nb">int</span>):
+    <span class="vr">seen</span> = {}
+    <span class="kw">for</span> <span class="vr">i</span>, <span class="vr">n</span> <span class="kw">in</span> <span class="fn">enumerate</span>(<span class="vr">nums</span>):
+      <span class="vr">comp</span> = <span class="vr">target</span> - <span class="vr">n</span>
+      <span class="kw">if</span> <span class="vr">comp</span> <span class="kw">in</span> <span class="vr">seen</span>:
+        <span class="kw">return</span> [<span class="vr">seen</span>[<span class="vr">comp</span>], <span class="vr">i</span>]
+      <span class="vr">seen</span>[<span class="vr">n</span>] = <span class="vr">i</span></pre>
+        </div>
+      </div>
+      <div class="code-results">
+        <div class="cr-header">
+          <div class="cr-ht">Test Results</div>
+          <div class="cr-badge-pass">4/4 Passed</div>
+        </div>
+        <div class="cr-row"><span class="cr-ok">✔</span><span class="cr-lbl">Test 1 — [2,7,11,15], target=9 → [0,1]</span><span class="cr-t">12ms</span></div>
+        <div class="cr-row"><span class="cr-ok">✔</span><span class="cr-lbl">Test 2 — [3,2,4], target=6 → [1,2]</span><span class="cr-t">8ms</span></div>
+        <div class="cr-row"><span class="cr-ok">✔</span><span class="cr-lbl">Test 3 — [3,3], target=6 (edge case)</span><span class="cr-t">9ms</span></div>
+        <div class="cr-row"><span class="cr-ok">✔</span><span class="cr-lbl">Test 4 — Large array n=10⁴</span><span class="cr-t">44ms</span></div>
+        <div class="cr-sum">
+          <span class="cr-score">4/4 Tests · 50/50 pts</span>
+          <span class="cr-meta">Runtime 44ms · Memory 14.8 MB</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURE 3: LEARNING MODULES ══ -->
+<section class="sec">
+  <div class="split reveal">
+    <div>
+      <span class="kicker">Learning Modules</span>
+      <p class="tagline">Study first.<br><em>Then test.</em></p>
+      <p class="sec-desc">Gate assessments behind learning content. Videos, PDFs, readings — students must complete modules before tests unlock. Track every minute spent.</p>
+    </div>
+    <div class="lm-mock">
+      <div class="lm-topbar">
+        <div class="lm-title">📚 Operating Systems — Module 3</div>
+        <div class="lm-prog-wrap">
+          <div class="lm-pb"><div class="lm-pf"></div></div>
+          <div class="lm-pct">65%</div>
+        </div>
+      </div>
+      <div class="lm-body">
+        <div class="lm-sidebar">
+          <div class="lm-item">
+            <div class="lm-ic ic-done">✓</div>
+            <div class="lm-info"><div class="lm-name">Intro to OS</div><div class="lm-sub">Completed</div></div>
+            <div class="lm-dur">18m</div>
+          </div>
+          <div class="lm-item">
+            <div class="lm-ic ic-done">✓</div>
+            <div class="lm-info"><div class="lm-name">Process Management</div><div class="lm-sub">Completed</div></div>
+            <div class="lm-dur">24m</div>
+          </div>
+          <div class="lm-item on">
+            <div class="lm-ic ic-on">▶</div>
+            <div class="lm-info"><div class="lm-name">Memory Management</div><div class="lm-sub">In progress</div></div>
+            <div class="lm-dur">30m</div>
+          </div>
+          <div class="lm-item">
+            <div class="lm-ic ic-lock">🔒</div>
+            <div class="lm-info"><div class="lm-name">File Systems</div><div class="lm-sub">Locked</div></div>
+            <div class="lm-dur">22m</div>
+          </div>
+          <div class="lm-item">
+            <div class="lm-ic ic-lock">🔒</div>
+            <div class="lm-info"><div class="lm-name">Final Assessment</div><div class="lm-sub">Locked</div></div>
+            <div class="lm-dur">—</div>
+          </div>
+        </div>
+        <div class="lm-content">
+          <div class="lm-video">
+            <div class="lm-play-btn">▶</div>
+            <div class="lm-v-label">Memory Management — Lecture 3</div>
+            <div class="lm-v-dur">24:38</div>
+          </div>
+          <div class="lm-ct-title">Virtual Memory & Paging</div>
+          <div class="lm-ct-desc">Learn how OS uses virtual memory to give each process its own address space, and how paging translates virtual to physical addresses.</div>
+          <div class="lm-resources">
+            <div class="lm-res">
+              <div class="lm-res-icon">📄</div>
+              <div class="lm-res-name">Lecture Notes.pdf</div>
+              <div class="lm-res-size">1.2 MB</div>
+              <div class="lm-res-dl">↓</div>
+            </div>
+            <div class="lm-res">
+              <div class="lm-res-icon">📊</div>
+              <div class="lm-res-name">Paging Diagrams.pdf</div>
+              <div class="lm-res-size">840 KB</div>
+              <div class="lm-res-dl">↓</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FEATURE 4: ANALYTICS ══ -->
+<section class="sec alt">
+  <div class="split rev reveal">
+    <div>
+      <span class="kicker">Analytics</span>
+      <p class="tagline">Know who's<br><em>falling behind.</em></p>
+      <p class="sec-desc">Real-time score distributions, leaderboards, question difficulty heatmaps, and time-per-question breakdowns. Export-ready reports in one click.</p>
+    </div>
+    <div class="an-mock">
+      <div class="an-topbar">
+        <div class="an-title">📈 Assessment Analytics</div>
+        <div class="an-tabs">
+          <div class="an-tab on">Overview</div>
+          <div class="an-tab">Students</div>
+          <div class="an-tab">Questions</div>
+        </div>
+      </div>
+      <div class="an-body">
+        <div class="an-kpis">
+          <div class="an-kpi">
+            <div class="an-kn">84%</div>
+            <div class="an-kl">Average Score</div>
+            <div class="an-kt" style="color:var(--green)">↑ 6% from last exam</div>
+          </div>
+          <div class="an-kpi">
+            <div class="an-kn">134</div>
+            <div class="an-kl">Attempted</div>
+            <div class="an-kt" style="color:var(--blue)">86% completion</div>
+          </div>
+          <div class="an-kpi">
+            <div class="an-kn">28m</div>
+            <div class="an-kl">Avg. Time Taken</div>
+            <div class="an-kt" style="color:var(--orange)">↑ 3m longer</div>
+          </div>
+        </div>
+        <div class="an-chart-box">
+          <div class="an-chart-title">Score Distribution</div>
+          <div class="an-bars">
+            <div class="an-bar" style="height:18%;background:var(--border2)"></div>
+            <div class="an-bar" style="height:32%;background:#BFDBFE"></div>
+            <div class="an-bar" style="height:54%;background:#93C5FD"></div>
+            <div class="an-bar" style="height:100%;background:var(--blue)"></div>
+            <div class="an-bar" style="height:80%;background:var(--blue)"></div>
+            <div class="an-bar" style="height:60%;background:#93C5FD"></div>
+            <div class="an-bar" style="height:40%;background:#BFDBFE"></div>
+            <div class="an-bar" style="height:22%;background:var(--border2)"></div>
+          </div>
+          <div class="an-blabels">
+            <div class="an-bl">0–50</div><div class="an-bl">51–60</div><div class="an-bl">61–70</div>
+            <div class="an-bl">71–80</div><div class="an-bl">81–90</div><div class="an-bl">91–95</div>
+            <div class="an-bl">96–98</div><div class="an-bl">99+</div>
+          </div>
+        </div>
+        <div class="an-lb">
+          <div class="an-lbh"><div>#</div><div>Student</div><div>Score</div><div>Time</div></div>
+          <div class="an-lbr"><div class="an-rk">🥇</div><div class="an-nm">Arjun Mehta</div><div class="an-sc">98%</div><div class="an-tm">22m</div></div>
+          <div class="an-lbr"><div class="an-rk">🥈</div><div class="an-nm">Sneha Patil</div><div class="an-sc">95%</div><div class="an-tm">25m</div></div>
+          <div class="an-lbr"><div class="an-rk">🥉</div><div class="an-nm">Priya Singh</div><div class="an-sc">91%</div><div class="an-tm">29m</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ COMPARE ══ -->
+<section class="sec" id="compare">
+  <div style="text-align:center;margin-bottom:48px" class="reveal">
+    <span class="kicker" style="margin-bottom:14px;display:inline-block">Platform Comparison</span>
+    <p class="tagline" style="max-width:520px;margin:0 auto">Why colleges switch to <em>thriveQ LMS</em>.</p>
+    <p style="font-size:15px;color:var(--ink3);margin-top:12px">Honest comparison — no spin.</p>
+  </div>
+  <div class="cmp-scroll reveal">
+    <table class="ctbl">
+      <thead>
+        <tr>
+          <th style="min-width:200px">Feature</th>
+          <th class="us" style="min-width:140px">thriveQ LMS</th>
+          <th style="min-width:100px">Moodle</th>
+          <th style="min-width:100px">Canvas</th>
+          <th style="min-width:135px">Google Classroom</th>
+          <th style="min-width:120px">HackerRank</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="feat">MCQ Assessments</td><td class="us"><span class="ck">✓</span> Full suite</td><td><span class="ck">✓</span> Basic</td><td><span class="ck">✓</span> Basic</td><td><span class="cp">~ Via Forms</span></td><td><span class="cx">–</span></td></tr>
+        <tr><td class="feat">Coding + Test Cases</td><td class="us"><span class="ck">✓</span> Judge0</td><td><span class="cx">–</span></td><td><span class="cx">–</span></td><td><span class="cx">–</span></td><td><span class="ck">✓</span></td></tr>
+        <tr><td class="feat">Essay / Written</td><td class="us"><span class="ck">✓</span> With rubric</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="cp">~ Basic</span></td><td><span class="cx">–</span></td></tr>
+        <tr><td class="feat">Gated Learning Modules</td><td class="us"><span class="ck">✓</span> Native</td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="cp">~ Basic</span></td><td><span class="cx">–</span></td></tr>
+        <tr><td class="feat">White Labelling</td><td class="us"><span class="ck">✓</span> Full</td><td><span class="cp">~ Theme only</span></td><td><span class="cp">~ Partial</span></td><td><span class="cx">–</span></td><td><span class="cp">~ Partial</span></td></tr>
+        <tr><td class="feat">5,000 Concurrent Users</td><td class="us"><span class="ck">✓</span> Built-in</td><td><span class="cp">~ Infra cost</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td><td><span class="ck">✓</span></td></tr>
+        <tr><td class="feat">Class → Section → Zone</td><td class="us"><span class="ck">✓</span> Native</td><td><span class="cp">~ Workaround</span></td><td><span class="cp">~ Partial</span></td><td><span class="cx">–</span></td><td><span class="cx">–</span></td></tr>
+        <tr><td class="feat">Full Audit Logging</td><td class="us"><span class="ck">✓</span> All API calls</td><td><span class="cp">~ Partial</span></td><td><span class="cp">~ Partial</span></td><td><span class="cx">–</span></td><td><span class="cp">~ Basic</span></td></tr>
+        <tr><td class="feat">Real-time Leaderboards</td><td class="us"><span class="ck">✓</span> Live</td><td><span class="cx">–</span></td><td><span class="cx">–</span></td><td><span class="cx">–</span></td><td><span class="ck">✓</span></td></tr>
+        <tr><td class="feat">Setup Time</td><td class="us" style="color:var(--green);font-weight:800">1 day · SaaS</td><td style="color:var(--red);font-weight:600">Weeks</td><td style="color:var(--yellow);font-weight:600">Days–weeks</td><td style="color:var(--green);font-weight:600">Minutes</td><td style="color:var(--yellow);font-weight:600">Days</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══ PRICING ══ -->
+<section class="sec alt" id="pricing">
+  <div style="text-align:center" class="reveal">
+    <span class="kicker" style="margin-bottom:14px;display:inline-block">Pricing</span>
+    <p class="tagline" style="max-width:480px;margin:0 auto">Priced for your institution,<br><em>not per student.</em></p>
+    <p style="font-size:15px;color:var(--ink3);margin:14px auto 0;max-width:440px">Every college is different — student count, departments, features. We'll build the right plan together. No per-student fees, ever.</p>
+  </div>
+  <div class="tier-grid reveal">
+    <div class="tier">
+      <div class="tier-icon">🏫</div>
+      <div class="tier-name">Small College</div>
+      <div class="tier-desc">Pilot programs, single departments, up to a few hundred students. We'll get you live fast — often in under a week.</div>
+    </div>
+    <div class="tier hot">
+      <div class="tier-tag">Most Popular</div>
+      <div class="tier-icon">🎓</div>
+      <div class="tier-name">Mid-size University</div>
+      <div class="tier-desc">Multiple departments, 1,000–3,000 students, full feature suite including analytics, leaderboards, and white labelling.</div>
+    </div>
+    <div class="tier">
+      <div class="tier-icon">🏛️</div>
+      <div class="tier-name">Large Institution</div>
+      <div class="tier-desc">5,000+ concurrent users, white labelling, dedicated infra, SSO/LTI integration, and a dedicated account manager.</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:40px" class="reveal">
+    <button class="btn-blue" onclick="openModal()" style="font-size:14.5px">✉️ Get a Quote →</button>
+    <p style="font-size:12.5px;color:var(--ink4);margin-top:13px">We respond within one business day.</p>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section class="sec">
+  <div style="text-align:center;margin-bottom:0" class="reveal">
+    <span class="kicker" style="margin-bottom:14px;display:inline-block">Testimonials</span>
+    <p class="tagline" style="max-width:480px;margin:0 auto">Trusted by faculty across India.</p>
+  </div>
+  <div class="tgrid reveal">
+    <div class="tcard">
+      <div class="tstars">★★★★★</div>
+      <div class="ttext">"Switched from Moodle after years of fighting plugins. thriveQ LMS just worked — coding tests, MCQs, audit logs. We were live in 2 days."</div>
+      <div class="tauth">
+        <div class="tav" style="background:linear-gradient(135deg,#FF4B2B,#FF8C42)">DR</div>
+        <div><div class="tname">Dr. Radhakrishnan Iyer</div><div class="trole">HoD CS · NIT Trichy</div></div>
+      </div>
+    </div>
+    <div class="tcard">
+      <div class="tstars">★★★★★</div>
+      <div class="ttext">"The leaderboard made students genuinely competitive. First time I've seen them voluntarily review wrong answers. Zone grouping is brilliant."</div>
+      <div class="tauth">
+        <div class="tav" style="background:linear-gradient(135deg,#2B6DFF,#00C9FF)">SP</div>
+        <div><div class="tname">Sneha Patil</div><div class="trole">Senior Faculty · PIT Pune</div></div>
+      </div>
+    </div>
+    <div class="tcard">
+      <div class="tstars">★★★★★</div>
+      <div class="ttext">"White labelling was non-negotiable for us. Students see our institute brand everywhere. The sandbox handles 3,000 students without a hitch."</div>
+      <div class="tauth">
+        <div class="tav" style="background:linear-gradient(135deg,#00C48C,#00A878)">AK</div>
+        <div><div class="tname">Amit Kumar Singh</div><div class="trole">CTO · Amity University Online</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<div class="cta-band reveal">
+  <h2>Ready to modernise<br>your assessments?</h2>
+  <p>Talk to us — we'll build the right plan for your institution.</p>
+  <div class="cta-actions">
+    <button class="btn-wht" onclick="openModal()">Get a Demo →</button>
+    <button class="btn-ghost" onclick="openModal()">Contact Sales</button>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="fg">
+    <div>
+      <a href="#" class="logo"><div class="logo-sq">tQ</div>thriveQ</a>
+      <p class="fb-desc">An assessment platform by thriveQ — built for Indian higher education. MCQs, coding, essays, and learning modules in one place.</p>
+      <a href="mailto:thriveqservices@gmail.com" class="fb-email">📧 thriveqservices@gmail.com</a>
+    </div>
+    <div>
+      <div class="fh">Product</div>
+      <ul class="fl">
+        <li><a href="#features">MCQ Assessments</a></li>
+        <li><a href="#features">Coding Challenges</a></li>
+        <li><a href="#features">Essay Portal</a></li>
+        <li><a href="#features">Learning Modules</a></li>
+        <li><a href="#features">Analytics</a></li>
+        <li><a href="#features">White Labelling</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="fh">Company</div>
+      <ul class="fl">
+        <li><a href="#">About thriveQ</a></li>
+        <li><button onclick="openModal()">Get a Demo</button></li>
+        <li><button onclick="openModal()">Contact Sales</button></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="fbot">
+    <p>© 2026 thriveQ · thriveQ LMS — Built for Indian Higher Education.</p>
+    <p>React · Node.js · Supabase · Judge0</p>
+  </div>
+</footer>
+
+<script>
+// ── MODAL ──────────────────────────────
+function openModal(){
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function handleBg(e){
+  if(e.target===document.getElementById('overlay')) closeModal();
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape') closeModal()});
+
+// Step navigation
+const PROGS=['33%','66%','100%'];
+function mgo(n){
+  document.querySelectorAll('.mpanel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('mp'+n).classList.add('on');
+  // dots
+  for(let i=1;i<=3;i++){
+    const si=document.getElementById('msi'+i);
+    const sd=document.getElementById('msd'+i);
+    const sl=document.getElementById('msl'+i);
+    si.classList.remove('on','done');
+    sd.classList.remove('on','done');
+    sd.textContent=i;
+    if(i<n){si.classList.add('done');sd.classList.add('done');sd.textContent='✓'}
+    if(i===n){si.classList.add('on');sd.classList.add('on')}
+    if(sl) sl.classList.toggle('done',i<n);
+  }
+  document.getElementById('mprog').style.width=PROGS[n-1];
+  document.getElementById('modal').scrollTo({top:0,behavior:'smooth'});
+}
+
+// Role cards
+document.querySelectorAll('#m-roles .m-role').forEach(r=>r.addEventListener('click',()=>{
+  document.querySelectorAll('#m-roles .m-role').forEach(x=>x.classList.remove('sel'));
+  r.classList.add('sel');
+}));
+
+// Feature chips
+document.querySelectorAll('#mchips .chip').forEach(c=>c.addEventListener('click',()=>{
+  c.classList.toggle('sel');
+  c.querySelector('.chk').textContent=c.classList.contains('sel')?'✓':'';
+}));
+
+// Student slider
+const SIZES=['< 500 students','~1,000 students','~2,500 students','~5,000 students','10,000+ students'];
+function mslUpdate(v){
+  document.getElementById('mslv').textContent=SIZES[v];
+  const pct=(v/4)*100;
+  document.getElementById('msl').style.background=
+    `linear-gradient(to right,var(--blue) 0%,var(--blue) ${pct}%,var(--border2) ${pct}%)`;
+}
+mslUpdate(1);
+
+// Submit
+function msub(){
+  const btn=document.getElementById('msubbtn');
+  btn.textContent='Sending…';
+  btn.disabled=true;
+  setTimeout(()=>{
+    const ref='TQ-'+Date.now().toString(36).toUpperCase().slice(-6)+Math.random().toString(36).toUpperCase().slice(-2);
+    document.getElementById('mrefid').textContent=ref;
+    document.querySelectorAll('.mpanel').forEach(p=>{p.classList.remove('on');p.style.display='none'});
+    document.getElementById('msteps').style.display='none';
+    document.getElementById('mprog').style.width='100%';
+    const s=document.getElementById('m-succ');
+    s.style.display='block';
+    requestAnimationFrame(()=>s.classList.add('on'));
+  },1500);
+}
+
+// ── SCROLL REVEAL ──────────────────────
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting) e.target.classList.add('in')});
+},{threshold:0.07});
+document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));
+
+// ── NAV SHADOW ──────────────────────────
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>10);
+},{ passive:true });
+</script>
+</body>
+</html>
