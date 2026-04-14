@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Contact Us — thriveQ</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter+Tight:100,200,300,400,500,600,700,800,900,italic%7CIBM+Plex+Mono:300,400,500" media="all">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --blue: #229EFF;
+            --blue-dim: rgba(34,158,255,0.12);
+            --white: #fff;
+            --black: #000;
+            --gray-100: #111;
+            --gray-200: #1a1a1a;
+            --gray-300: #222;
+            --gray-400: #333;
+            --gray-500: #555;
+            --gray-600: #888;
+            --gray-700: #aaa;
+            --border: rgba(255,255,255,0.08);
+            --border-hover: rgba(34,158,255,0.4);
+            --green: #27ECA8;
+            --red: #FF4444;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter Tight', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── NAVBAR ── */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 0 2rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 0.5px solid var(--border);
+        }
+
+        .nav-logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav-logo span { color: var(--blue); }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            color: var(--gray-700);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: #fff; }
+        .nav-back svg { width: 14px; height: 14px; }
+
+        /* ── HERO / PAGE HEADER ── */
+        .page-header {
+            padding: 140px 2rem 60px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .page-header .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            color: var(--blue);
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        .tag-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--blue);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.7); }
+        }
+
+        .page-header h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -0.04em;
+            margin-bottom: 1.25rem;
+        }
+
+        .page-header h1 .gradient {
+            background: linear-gradient(90deg, var(--blue) 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            font-size: 1rem;
+            color: var(--gray-600);
+            max-width: 480px;
+            line-height: 1.7;
+        }
+
+        /* ── LAYOUT ── */
+        .contact-layout {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem 6rem;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        @media (max-width: 820px) {
+            .contact-layout { grid-template-columns: 1fr; }
+            .sidebar { order: -1; }
+        }
+
+        /* ── FORM CARD ── */
+        .form-card {
+            background: var(--gray-200);
+            border: 0.5px solid var(--border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--blue), transparent);
+            opacity: 0.6;
+        }
+
+        .form-card h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.4rem;
+        }
+        .form-card .subtitle {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            margin-bottom: 2rem;
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 0.05em;
+        }
+
+        /* ── FORM FIELDS ── */
+        .field-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        @media (max-width: 600px) {
+            .field-group { grid-template-columns: 1fr; }
+        }
+
+        .field {
+            margin-bottom: 1.25rem;
+        }
+
+        .field label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gray-600);
+            margin-bottom: 0.5rem;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .field input,
+        .field textarea,
+        .field select {
+            width: 100%;
+            background: var(--gray-300);
+            border: 0.5px solid var(--border);
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Inter Tight', sans-serif;
+            font-size: 0.9rem;
+            padding: 0.7rem 1rem;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        .field input::placeholder,
+        .field textarea::placeholder {
+            color: var(--gray-500);
+        }
+
+        .field input:focus,
+        .field textarea:focus,
+        .field select:focus {
+            border-color: var(--blue);
+            background: rgba(34,158,255,0.05);
+        }
+
+        .field input.error,
+        .field textarea.error,
+        .field select.error {
+            border-color: var(--red);
+        }
+
+        .field textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        /* custom select arrow */
+        .select-wrapper {
+            position: relative;
+        }
+        .select-wrapper::after {
+            content: '';
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0; height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid var(--gray-600);
+            pointer-events: none;
+        }
+        .select-wrapper select option {
+            background: #111;
+        }
+
+        /* service pills */
+        .service-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .pill {
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 0.5px solid var(--border);
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            cursor: pointer;
+            transition: all 0.15s;
+            user-select: none;
+            background: var(--gray-300);
+            letter-spacing: 0.03em;
+        }
+        .pill:hover {
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+        .pill.selected {
+            background: var(--blue-dim);
+            border-color: var(--blue);
+            color: var(--blue);
+        }
+
+        .pill-error-msg {
+            font-size: 0.72rem;
+            color: var(--red);
+            margin-top: 6px;
+            display: none;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        /* ── SUBMIT BUTTON ── */
+        .btn-submit {
+            width: 100%;
+            padding: 0.85rem 2rem;
+            background: var(--white);
+            color: var(--black);
+            border: none;
+            border-radius: 8px;
+            font-family: 'Inter Tight', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s;
+            margin-top: 1.75rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-submit:hover { background: #e8e8e8; transform: translateY(-1px); }
+        .btn-submit:active { transform: translateY(0); }
+        .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        .btn-spinner {
+            width: 16px; height: 16px;
+            border: 2px solid rgba(0,0,0,0.2);
+            border-top-color: #000;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── SUCCESS / ERROR STATE ── */
+        .form-status {
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem;
+            display: none;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 1.5rem;
+        }
+        .form-status.success {
+            background: rgba(39,236,168,0.08);
+            border: 0.5px solid rgba(39,236,168,0.3);
+            display: flex;
+        }
+        .form-status.error-msg {
+            background: rgba(255,68,68,0.08);
+            border: 0.5px solid rgba(255,68,68,0.3);
+            display: flex;
+        }
+        .status-icon {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        .success .status-icon { background: rgba(39,236,168,0.15); color: var(--green); }
+        .error-msg .status-icon { background: rgba(255,68,68,0.15); color: var(--red); }
+        .status-text p:first-child {
+            font-size: 0.88rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .status-text p:last-child {
+            font-size: 0.78rem;
+            color: var(--gray-600);
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .info-card {
+            background: var(--gray-200);
+            border: 0.5px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .info-card .card-label {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--gray-600);
+            margin-bottom: 0.75rem;
+        }
+
+        .info-card .card-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .info-card .card-value {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+
+        .info-card .card-value a {
+            color: var(--blue);
+            text-decoration: none;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .stat-item {
+            background: var(--gray-300);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .stat-item .num {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            color: var(--blue);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .stat-item .lbl {
+            font-size: 0.7rem;
+            color: var(--gray-600);
+            font-family: 'IBM Plex Mono', monospace;
+            letter-spacing: 0.06em;
+        }
+
+        .services-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .service-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--gray-700);
+            padding: 4px 0;
+        }
+        .service-dot {
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--blue);
+            flex-shrink: 0;
+        }
+
+        /* ── GRID BACKGROUND ── */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.025;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .page-content { position: relative; z-index: 1; }
+
+        /* ── FOOTER LINE ── */
+        .page-footer {
+            border-top: 0.5px solid var(--border);
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .page-footer span {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        /* ── CHARACTER COUNTER ── */
+        .char-counter {
+            font-size: 0.68rem;
+            color: var(--gray-500);
+            text-align: right;
+            margin-top: 4px;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        @media (max-width: 480px) {
+            .form-card { padding: 1.5rem; }
+            .page-header { padding: 120px 1.25rem 40px; }
+            .contact-layout { padding: 0 1.25rem 4rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="bg-grid"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a href="index.html" class="nav-logo">thrive<span>Q</span></a>
+    <a href="index.html" class="nav-back">
+        <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 2L3 7L8 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Back to home
+    </a>
+</nav>
+
+<div class="page-content">
+    <!-- HEADER -->
+    <div class="page-header">
+        <div class="tag">
+            <span class="tag-dot"></span>
+            Contact Us
+        </div>
+        <h1>Let's build something<br><span class="gradient">exceptional.</span></h1>
+        <p>Tell us what you're working on and we'll get back to you within 24 hours.</p>
+    </div>
+
+    <!-- MAIN LAYOUT -->
+    <div class="contact-layout">
+
+        <!-- FORM COLUMN -->
+        <div>
+            <div class="form-card">
+                <h2>Send us a message</h2>
+                <div class="subtitle">// We respond in &lt; 24 hours</div>
+
+                <!-- Status Messages -->
+                <div class="form-status success" id="successMsg">
+                    <div class="status-icon">✓</div>
+                    <div class="status-text">
+                        <p>Message received!</p>
+                        <p>We'll reach out to you within 24 hours.</p>
+                    </div>
+                </div>
+                <div class="form-status error-msg" id="errorMsg">
+                    <div class="status-icon">✕</div>
+                    <div class="status-text">
+                        <p>Something went wrong</p>
+                        <p id="errorDetail">Please try again or email us directly.</p>
+                    </div>
+                </div>
+
+                <form id="contactForm" novalidate>
+                    <!-- Name + Mobile -->
+                    <div class="field-group">
+                        <div class="field">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" placeholder="Full Name" autocomplete="name">
+                        </div>
+                        <div class="field">
+                            <label for="mobile">Mobile Number</label>
+                            <input type="tel" id="mobile" placeholder="" autocomplete="tel">
+                        </div>
+                    </div>
+
+                    <!-- Service Selection -->
+                    <div class="field">
+                        <label>Service Interested In</label>
+                        <div class="service-pills" id="servicePills">
+                            <span class="pill" data-value="Web Apps">Web Apps</span>
+                            <span class="pill" data-value="MVP">MVP</span>
+                            <span class="pill" data-value="Digital Marketing">Digital Marketing</span>
+                            <span class="pill" data-value="AI Agents">AI Agents</span>
+                            <span class="pill" data-value="CRM">CRM</span>
+                            <span class="pill" data-value="LMS">LMS</span>
+                            <span class="pill" data-value="Other">Other</span>
+                        </div>
+                        <div class="pill-error-msg" id="pillError">Please select a service</div>
+                        <input type="hidden" id="selectedService" value="">
+                    </div>
+
+                    <!-- Description -->
+                    <div class="field">
+                        <label for="description">Tell us about your project</label>
+                        <textarea id="description" placeholder="Briefly describe what you're looking to build or improve..." maxlength="1000"></textarea>
+                        <div class="char-counter"><span id="charCount">0</span> / 1000</div>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        <span class="btn-spinner" id="spinner"></span>
+                        <span id="btnText">Send Message</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="sidebar">
+            <!-- Stats -->
+            <div class="info-card">
+                <div class="card-label">// By the numbers</div>
+                <div class="stat-grid">
+                    <div class="stat-item">
+                        <div class="num">24h</div>
+                        <div class="lbl">Response time</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="num">49+</div>
+                        <div class="lbl">Projects shipped</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="num">7</div>
+                        <div class="lbl">Services offered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="num">98%</div>
+                        <div class="lbl">Client satisfaction</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Details -->
+            <div class="info-card">
+                <!-- <div class="card-label">// Get in touch</div> -->
+                <div class="card-title">Email us directly</div>
+                <div class="card-value">
+                    <a href="mailto:thriveqservices@gmail.com">thriveqservices@gmail.com</a>
+                </div>
+            </div>
+
+            <!-- Location -->
+            <div class="info-card">
+                <!-- <div class="card-label">// Location</div> -->
+                <div class="card-title">Based in</div>
+                <div class="card-value">Mumbai, India</div>
+            </div>
+
+            <!-- Services list -->
+            <div class="info-card">
+                <div class="card-label">// What we do</div>
+                <div class="services-list">
+                    <div class="service-row"><span class="service-dot"></span>Web Applications</div>
+                    <div class="service-row"><span class="service-dot"></span>MVP Development</div>
+                    <div class="service-row"><span class="service-dot"></span>Digital Marketing</div>
+                    <div class="service-row"><span class="service-dot"></span>AI Agents & Automation</div>
+                    <div class="service-row"><span class="service-dot"></span>thriveQ CRM</div>
+                    <div class="service-row"><span class="service-dot"></span>thriveQ LMS</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-footer">
+        <span>© 2025 thriveQ. All rights reserved.</span>
+        <span>Powered by thriveQ</span>
+    </div>
+</div>
+
+<script>
+    const SUPABASE_URL = 'https://ckyyvfmyeusolwjkgjon.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNreXl2Zm15ZXVzb2x3amtnam9uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MzI5MTIsImV4cCI6MjA5MTQwODkxMn0.lcXTGT3XYQ-RP17iNQL0uxtbUN_FyCG7wAGqz5OpoCU';
+
+    /* ── PILL SELECTION ── */
+    let selectedService = '';
+    document.querySelectorAll('.pill').forEach(pill => {
+        pill.addEventListener('click', () => {
+            document.querySelectorAll('.pill').forEach(p => p.classList.remove('selected'));
+            pill.classList.add('selected');
+            selectedService = pill.dataset.value;
+            document.getElementById('selectedService').value = selectedService;
+            document.getElementById('pillError').style.display = 'none';
+        });
+    });
+
+    /* ── CHAR COUNTER ── */
+    const descEl = document.getElementById('description');
+    const counterEl = document.getElementById('charCount');
+    descEl.addEventListener('input', () => {
+        counterEl.textContent = descEl.value.length;
+    });
+
+    /* ── VALIDATION ── */
+    function validate() {
+        let ok = true;
+        const name = document.getElementById('name');
+        const mobile = document.getElementById('mobile');
+        const desc = document.getElementById('description');
+
+        [name, mobile, desc].forEach(el => el.classList.remove('error'));
+
+        if (!name.value.trim()) { name.classList.add('error'); ok = false; }
+        if (!mobile.value.trim() || !/^[\d\s\+\-\(\)]{7,15}$/.test(mobile.value.trim())) {
+            mobile.classList.add('error'); ok = false;
+        }
+        if (!selectedService) {
+            document.getElementById('pillError').style.display = 'block';
+            ok = false;
+        }
+        if (!desc.value.trim()) { desc.classList.add('error'); ok = false; }
+        return ok;
+    }
+
+    /* ── SUBMIT ── */
+    document.getElementById('contactForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        document.getElementById('successMsg').style.display = 'none';
+        document.getElementById('errorMsg').style.display = 'none';
+
+        if (!validate()) return;
+
+        const btn = document.getElementById('submitBtn');
+        const spinner = document.getElementById('spinner');
+        const btnText = document.getElementById('btnText');
+
+        btn.disabled = true;
+        spinner.style.display = 'block';
+        btnText.textContent = 'Sending...';
+
+        const payload = {
+            name: document.getElementById('name').value.trim(),
+            mobile: document.getElementById('mobile').value.trim(),
+            service: selectedService,
+            description: document.getElementById('description').value.trim()
+        };
+
+        try {
+            const res = await fetch(`${SUPABASE_URL}/rest/v1/contact_submissions`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_KEY,
+                    'Authorization': `Bearer ${SUPABASE_KEY}`,
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (res.ok) {
+                document.getElementById('successMsg').style.display = 'flex';
+                document.getElementById('contactForm').reset();
+                document.querySelectorAll('.pill').forEach(p => p.classList.remove('selected'));
+                selectedService = '';
+                counterEl.textContent = '0';
+                document.getElementById('contactForm').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                const err = await res.json();
+                document.getElementById('errorDetail').textContent = err.message || 'Please try again.';
+                document.getElementById('errorMsg').style.display = 'flex';
+            }
+        } catch (err) {
+            document.getElementById('errorDetail').textContent = 'Network error — please try again.';
+            document.getElementById('errorMsg').style.display = 'flex';
+        } finally {
+            btn.disabled = false;
+            spinner.style.display = 'none';
+            btnText.textContent = 'Send Message';
+        }
+    });
+
+    /* ── Clear error state on input ── */
+    ['name','mobile','description'].forEach(id => {
+        document.getElementById(id).addEventListener('input', function() {
+            this.classList.remove('error');
+        });
+    });
+</script>
+</body>
+</html>
